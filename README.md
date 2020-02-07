@@ -1,6 +1,6 @@
 # Photoshop
 
-This is a collection of Photoshop scripts to automatize post-production work in Adobe Photoshop.
+This is a collection of Photoshop scripts to automate post-production work in Adobe Photoshop.
 
 #### Prepare PSD File.jsx
 ---
