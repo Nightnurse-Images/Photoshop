@@ -11,23 +11,34 @@ if (app.documents.length > 0) {
 function main() {
   var masksLayerSet = findLayerSet(docRef.layerSets, 'MASKS');
 
+  if(confirm("Would you like to save the merged image as a layer?")){
+    var updatesLayerSet = findLayerSet(docRef.layerSets, 'UPDATES');
+    var date = new Date()
+    docRef.selection.selectAll();
+    docRef.selection.copy(true);
+    var updateLayer = docRef.paste();
+    updateLayer.name = date.toISO()
+    updateLayer.move(updatesLayerSet,ElementPlacement.INSIDE);
+  }
+
   if (masksLayerSet instanceof LayerSet) {
     try {
-      var folder = Stdlib.selectFolder('Select the folder with render passes:');
+      var folder = Folder.selectDialog('Select the folder with render passes:');
     } catch (e) {
-      return;
-    }
 
+    }
     if (folder !== 'undefined' || folder != 'null') {
       Stdlib.zoomFitOnScreen();
       iterateFiles(folder, masksLayerSet);
     } else {
       return;
     }
+
   } else {
     alert("MASKS folder not found !");
     return;
   }
+
   Stdlib.deselectAllLayers(docRef);
   docRef.selection.deselect();
 }
